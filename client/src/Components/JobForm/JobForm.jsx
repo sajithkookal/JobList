@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import styles from './Style.module.css'
 import { useNavigate, useLocation } from 'react-router-dom';
+
 export const JobForm=()=> {
     const navigate = useNavigate()
     const {state} = useLocation();
@@ -207,7 +208,7 @@ export const JobForm=()=> {
 
       <div className={styles.formGroup}>
         <label className={styles.label} htmlFor="skills">Skills:</label>
-        <input className={styles.input} type="text" name="skills" value={formData.skillsRequired} onChange={handleChange} placeholder='skills'/>
+        <input className={styles.input} type="text" name="skillsRequired" value={formData.skillsRequired} onChange={handleChange} placeholder='skills'/>
       </div>
     
     </div>

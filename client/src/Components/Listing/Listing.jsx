@@ -64,7 +64,7 @@ export const Listing = ()=>{
                         )
                     }
                     )}
-                <button onClick={()=>navigate("/addJob")}  className={styles.edit}>Add Job</button>
+                <button onClick={()=>navigate("/addJob",{ state: { id: jobs._id} })}  className={styles.edit}>Add Job</button>
                 </div>
             </div>
             {/* <div className={styles.bottom}> */}

@@ -5,20 +5,38 @@
     top: 0;
     display: flex;
     width: 100vw;
-    height: 10vh;
+    height: 15vh;
     align-items: center;
-    justify-content: space-between;
-    padding: 5vw;
     box-sizing: border-box;
-    z-index: 1;
+  
 }
 
 .text{
+    position: fixed;
     font-weight: 700;
     font-size: 1.5rem;
     color: white;
+    left: 5vw;
 }
-
+.rectangle2{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.rectangle3{
+    position: absolute;
+    top: 0;
+    left: 40vw;
+    width: 20%; 
+    height: auto; 
+}
+.rectangle4{
+    position: absolute;
+    right: 5vw;
+    top: 0;
+    width: 20%; 
+    height: auto; 
+}
 .login{
     border: 2px solid white;
     background-color: transparent;
@@ -37,8 +55,14 @@
     border-radius: 6px;
     border: none;
 }
+.reglogdiv{
+    position: absolute;
+    right: 7vw;
+}
 
 .loggedInText{
+    position: absolute;
+    right: 7vw;
     color: white;
     font-weight: 600;
     margin-right: 0.5rem;
