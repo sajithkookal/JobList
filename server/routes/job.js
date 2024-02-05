@@ -88,12 +88,7 @@ router.get('/job-posts', async (req, res) => {
     }
 
     if (skillsRequired) {
-     // query.skillsRequired = { $in: skillsRequired.split('&') };
-       query = {
-        skillsRequired: {
-          $regex: new RegExp({ $in: skillsRequired.split('&') }, 'i'), // 'i' flag makes the search case-insensitive
-        },
-      };
+      query.skillsRequired = { $in: skillsRequired.split('&') };
     }
     console.log(query)
     const jobPosts = await JobPost.find(query).sort({ createdAt: -1 });

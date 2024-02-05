@@ -46,6 +46,7 @@ export const Listing = () => {
     useEffect(() => {
         const options = { method: 'GET' };
         const search = skills.join("&")
+        console.log(search," search");
         fetch(`https://job-seeker-zbzl.onrender.com/api/job/job-posts?skillsRequired=${search}`, options)
             .then(response => response.json())
             .then(response => setJobs([...response.jobPosts]))
@@ -137,5 +138,6 @@ const codingSkills = [
     'CSS',
     'css',
     "node",
+    "Flutter",
     "react"
 ];
