@@ -79,6 +79,7 @@ router.put('/job-posts/:id', requireAuth, async (req, res) => {
 // Get Job Posts with Filters API
 router.get('/job-posts', async (req, res) => {
   const { jobType, skillsRequired } = req.query;
+  console.log(req.query,"skillsRequired")
 
   try {
     let query = {};
