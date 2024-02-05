@@ -88,7 +88,9 @@ router.get('/job-posts', async (req, res) => {
     }
 
     if (skillsRequired) {
+      console.log(skillsRequired)
       const skillsRequirs =  skillsRequired.split('&');
+      console.log(skillsRequirs)
       query.skillsRequired = { $in: skillsRequirs.map(skill => new RegExp(skill, 'i')) };
       
     }
