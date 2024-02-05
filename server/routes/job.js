@@ -14,13 +14,13 @@ router.post('/job-posts', requireAuth, async (req, res) => {
     remote,
     location,
     description,
-    skills,
+    skillsRequired,
     about } = req.body;
   const recruiterName = req.body.name;
     console.log(req.body)
-   let skillsArray = skills;
-  if (typeof skills === 'string') {
-    skillsArray = skills.split(',').map(skill => skill.trim());
+   let skillsArray = skillsRequired;
+  if (typeof skillsRequired === 'string') {
+    skillsArray = skillsRequired.split(',').map(skillsRequired => skillsRequired.trim());
   }
 
   
