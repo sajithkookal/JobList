@@ -44,7 +44,7 @@ export const Listing = ()=>{
         .catch(err => console.error(err));
     },[skills])
     return(
-        <>
+        <div className={styles.main}>
             <div className={styles.container}>
                 <div className={styles.containerTop}>
                 <input className={styles.inputTop} value={search} onChange={handleSearch}  type="text" name='search' placeholder='Type any job title'/>
@@ -67,7 +67,7 @@ export const Listing = ()=>{
                 <button onClick={()=>navigate("/addJob",{ state: { id: jobs._id} })}  className={styles.edit}>Add Job</button>
                 </div>
             </div>
-            {/* <div className={styles.bottom}> */}
+             <div className={styles.bottom}> 
             {jobs.map((data)=>{
                 return(
                   <div key={data._id}  className={styles.list}>
@@ -79,7 +79,7 @@ export const Listing = ()=>{
                             <p className={styles.position}>{data.position}</p>
                             <p className={styles.extraInfo}>
                                 <span className={styles.greyText}>11-50</span>
-                                <span className={styles.greyText}>{data.salary}</span>
+                                <span className={styles.greyText}>₹ {data.salary}</span>
                                 <span className={styles.greyText}>{data.location}</span>
                             </p>
                             <p className={styles.extraInfo}>
@@ -105,8 +105,8 @@ export const Listing = ()=>{
                  </div>
                 )
             })}
-            {/* </div> */}
-        </>
+            </div> 
+        </div>
     )
 }
 
