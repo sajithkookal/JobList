@@ -24,7 +24,10 @@ export const Listing = () => {
         }
         else {
             const options = { method: 'GET' };
-            fetch(`https://job-seeker-zbzl.onrender.com/api/job/job-posts?skillsRequired=`, options)
+            const search = skills.join("&")
+    
+        const encodedSkills = encodeURIComponent(search);
+            fetch(`https://job-seeker-zbzl.onrender.com/api/job/job-posts?skillsRequired=${encodedSkills}`, options)
                 .then(response => response.json())
                 .then(response => setJobs([...response.jobPosts]))
                 .catch(err => console.error(err));

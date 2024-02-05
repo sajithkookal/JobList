@@ -79,7 +79,6 @@ router.put('/job-posts/:id', requireAuth, async (req, res) => {
 // Get Job Posts with Filters API
 router.get('/job-posts', async (req, res) => {
   const { jobType, skillsRequired } = req.query;
-  console.log(req.query,"skillsRequired")
 
   try {
     let query = {};
@@ -89,9 +88,7 @@ router.get('/job-posts', async (req, res) => {
     }
 
     if (skillsRequired) {
-      console.log(skillsRequired)
       const skillsRequirs =  skillsRequired.split('&');
-      console.log(skillsRequirs)
       query.skillsRequired = { $in: skillsRequirs.map(skill => new RegExp(skill, 'i')) };
       
     }
