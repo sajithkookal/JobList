@@ -20,7 +20,7 @@ export const Details = ()=>{
         {data?
         <>
              <div className={styles.container}>
-               <p className={styles.containerText}>{data.companyName}</p>
+               <p className={styles.containerText}>{data.position} {data.jobType} job/intership at {data.companyName}</p>
             </div>
             <div className={styles.containerBottom}>
                 <div className={styles.preHeading}>
@@ -61,6 +61,10 @@ export const Details = ()=>{
                 <div className={styles.info}>
                     <h2>About the job/internship</h2>
                     <p>{data.description}</p>
+                </div>
+                <div className={styles.info}>
+                    <h2>Additional Information</h2>
+                    <p>{data.information}</p>
                 </div>
             </div>
             </>

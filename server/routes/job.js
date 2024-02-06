@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Create Job Post API
 router.post('/job-posts', requireAuth, async (req, res) => {
-  const {  companyName,
+  const { companyName,
     logoURL,
     position,
     salary,
@@ -15,33 +15,35 @@ router.post('/job-posts', requireAuth, async (req, res) => {
     location,
     description,
     skillsRequired,
-    about } = req.body;
+    about,
+    information } = req.body;
   const recruiterName = req.body.name;
-    console.log(req.body)
-   let skillsArray = skillsRequired;
+  console.log(req.body)
+  let skillsArray = skillsRequired;
   if (typeof skillsRequired === 'string') {
     skillsArray = skillsRequired.split(',').map(skillsRequired => skillsRequired.trim());
   }
 
-  
+
   try {
     const jobPost = new JobPost({
-     companyName,
-    logoURL,
-    position,
-    salary,
-    jobType,
-    remote,
-    location,
-    description,
-    about,
-    skillsRequired: skillsArray,
-      recruiterName
+      companyName,
+      logoURL,
+      position,
+      salary,
+      jobType,
+      remote,
+      location,
+      description,
+      about,
+      skillsRequired: skillsArray,
+      recruiterName,
+      information
     });
 
     await jobPost.save();
 
-    return res.json({ message: 'Job post created successfully', name:recruiterName });
+    return res.json({ message: 'Job post created successfully', name: recruiterName });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: 'Internal server error' });
@@ -88,9 +90,9 @@ router.get('/job-posts', async (req, res) => {
     }
 
     if (skillsRequired) {
-      const skillsRequirs =  skillsRequired.split('&');
+      const skillsRequirs = skillsRequired.split('&');
       query.skillsRequired = { $in: skillsRequirs.map(skill => new RegExp(skill, 'i')) };
-      
+
     }
     console.log(query)
     const jobPosts = await JobPost.find(query).sort({ createdAt: -1 });

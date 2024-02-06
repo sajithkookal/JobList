@@ -23,7 +23,9 @@
 .input{
     width: 60%;
 }
-
+.input2{
+    width: 61%;
+}
 .cancel{
     background: #FFFFFF;
     border: 0.848485px solid #CECECE;

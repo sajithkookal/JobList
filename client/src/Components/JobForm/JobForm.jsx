@@ -13,11 +13,12 @@ export const JobForm=()=> {
     position: "",
     salary: "",
     jobType: "",
-    remote: "",
+    remote: "Remote",
     location: "",
     description: "",
     about: "",
-    skillsRequired: ""
+    skillsRequired: "",
+    information:""
   });
   console.log(formData)
   const handleChange = (event) => {
@@ -57,7 +58,8 @@ export const JobForm=()=> {
     !formData.location ||
     !formData.description ||
     !formData.about ||
-    !formData.skillsRequired
+    !formData.skillsRequired ||
+    !formData.information
   ) {
     alert("Please fill in all fields.");
     return;
@@ -111,7 +113,8 @@ export const JobForm=()=> {
     !formData.location ||
     !formData.description ||
     !formData.about ||
-    !formData.skillsRequired
+    !formData.skillsRequired ||
+    !formData.information
   ) {
     alert("Please fill in all fields.");
     return;
@@ -176,7 +179,7 @@ export const JobForm=()=> {
 
       <div className={styles.formGroup}>
         <label className={styles.label} htmlFor="jobType">Job Type:</label>
-        <select className={styles.input} name="jobType" value={formData.jobType} onChange={handleChange}>
+        <select className={styles.input2} name="jobType" value={formData.jobType} onChange={handleChange}>
           <option value="">Select job type</option>
           <option value="Full-time">Full-time</option>
           <option value="Part-time">Part-time</option>
@@ -185,7 +188,7 @@ export const JobForm=()=> {
 
       <div className={styles.formGroup}>
         <label className={styles.label} htmlFor="remote">Remote:</label>
-        <select className={styles.input} name="remote" value={formData.remote} onChange={handleChange}>
+        <select className={styles.input2} name="remote" value={formData.remote} onChange={handleChange}>
         <option value="Remote">Remote</option>
         <option value="Office">Office</option>
         </select>
@@ -210,7 +213,10 @@ export const JobForm=()=> {
         <label className={styles.label} htmlFor="skills">Skills:</label>
         <input className={styles.input} type="text" name="skillsRequired" value={formData.skillsRequired} onChange={handleChange} placeholder='skills'/>
       </div>
-    
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="information">Information:</label>
+        <input className={styles.input} type="text" name="information" value={formData.information} onChange={handleChange} placeholder='Enter the additional information'/>
+      </div>
     </div>
     <button onClick={()=>navigate("/listing")}  className={styles.cancel}>Cancel</button>
     {edit?

@@ -39,6 +39,10 @@ const jobPostSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  information: {
+    type: String,
+    required: true
+  },
 });
 
 module.exports = mongoose.model('JobPost', jobPostSchema);
