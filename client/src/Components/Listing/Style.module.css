@@ -102,7 +102,7 @@ img{
 .btnGroup{
     display: flex;
     margin-top: 1rem;
-    justify-content: space-evenly;
+    justify-content: right;
 }
 
 .view{

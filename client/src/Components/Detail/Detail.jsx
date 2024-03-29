@@ -6,6 +6,7 @@ export const Details = ()=>{
     const [data, setData]= useState(undefined)
     const {state} = useLocation();
     const { id } = state;
+    const token = window.localStorage.getItem("token");
 
     useEffect(()=>{
         const options = {method: 'GET'};
@@ -32,7 +33,7 @@ export const Details = ()=>{
                     <p className={styles.locationText}>{data.location}</p>
                     </div>
                     <div>
-                        <button onClick={()=>{navigate('/addJob', { state: { id: data._id, edit:true} })}}  className={styles.edit}>Edit Job</button>
+                       {token? <button onClick={()=>{navigate('/addJob', { state: { id: data._id, edit:true} })}}  className={styles.edit}>Edit Job</button> : ""}
                     </div>
                 </div>
                 <div className={styles.perks}>

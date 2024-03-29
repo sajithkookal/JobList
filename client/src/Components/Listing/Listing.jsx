@@ -8,10 +8,11 @@ export const Listing = () => {
     const [jobs, setJobs] = useState([])
     const [skills, setSkills] = useState([])
     const [search, setSearch] = useState("")
+    const token  = window.localStorage.getItem("token");
     const handleSearch = (e) => {
         setSearch(e.target.value)
     }
-
+   
     useEffect(() => {    
         if (search.length > 0) {
             const arr = jobs.filter((job)=>{
@@ -80,7 +81,10 @@ export const Listing = () => {
                         }
                         )}
                     </div>
-                    <button onClick={() => navigate("/addJob", { state: { id: jobs._id } })} className={styles.view}>Add Job</button>
+                    {
+                        token?  <button onClick={() => navigate("/addJob", { state: { id: jobs._id } })} className={styles.view}>Add Job</button> : ""
+                    }
+                   
                 </div>
             </div>
             <div className={styles.bottom}>
@@ -114,7 +118,7 @@ export const Listing = () => {
                                     )}
                                 </div>
                                 <div className={styles.btnGroup}>
-                                    <button onClick={() => navigate('/addJob', { state: { id: data._id, edit: true } })} className={styles.edit}>Edit job</button>
+                                   {token? <button onClick={() => navigate('/addJob', { state: { id: data._id, edit: true } })} className={styles.edit}>Edit job</button>:""}
                                     <button onClick={() => navigate('/detail', { state: { id: data._id } })} className={styles.view}>View Details</button>
                                 </div>
                             </div>

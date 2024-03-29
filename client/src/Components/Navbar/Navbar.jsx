@@ -13,6 +13,8 @@ export const Navbar = () => {
         window.localStorage.removeItem("name")
         window.localStorage.removeItem("token")
         setIsLoggedIn(!!window.localStorage.getItem("user"))
+        navigate("/")
+        alert("Logout successfully");
     }
     return (
         <div className={styles.nav}>
