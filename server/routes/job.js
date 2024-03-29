@@ -62,10 +62,13 @@ router.put('/job-posts/:id', requireAuth, async (req, res) => {
     if (!jobPost) {
       return res.status(404).json({ message: 'Job post not found' });
     }
-
+    let skillsArray = skillsRequired;
+    if (typeof skillsRequired === 'string') {
+      skillsArray = skillsRequired.split(',').map(skillsRequired => skillsRequired.trim());
+    }
     jobPost.companyName = companyName;
     jobPost.jobType = jobType;
-    jobPost.skillsRequired = skillsRequired;
+    jobPost.skillsRequired = skillsArray;
     jobPost.recruiterName = recruiterName;
 
     await jobPost.save();
