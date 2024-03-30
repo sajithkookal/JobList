@@ -128,11 +128,14 @@ img{
     width: 7vw;
     cursor: pointer;
 }
-/* .bottom{
+.bottom{
   
-  margin-top: 1vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
    
-} */
+}
 
 
 .chip{

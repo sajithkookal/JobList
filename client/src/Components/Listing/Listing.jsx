@@ -8,15 +8,20 @@ export const Listing = () => {
     const [jobs, setJobs] = useState([])
     const [skills, setSkills] = useState([])
     const [search, setSearch] = useState("")
-    const token  = window.localStorage.getItem("token");
+    const [loading, setLoading] = useState(false);
+    const token = window.localStorage.getItem("token");
     const handleSearch = (e) => {
         setSearch(e.target.value)
     }
-   
-    useEffect(() => {    
+
+    var catchGet = (err) => {
+        setLoading(false)
+        console.error(err)
+    }
+    useEffect(() => {
         if (search.length > 0) {
-            const arr = jobs.filter((job)=>{
-                if (job?.position?.toLowerCase().includes(search.toLowerCase())){
+            const arr = jobs.filter((job) => {
+                if (job?.position?.toLowerCase().includes(search.toLowerCase())) {
                     return job;
                 }
             });
@@ -24,20 +29,25 @@ export const Listing = () => {
             setJobs([...arr])
         }
         else {
+            setLoading(true);
+         
             const options = { method: 'GET' };
             const search = skills.join("&")
-    
-        const encodedSkills = encodeURIComponent(search);
+
+            const encodedSkills = encodeURIComponent(search);
             fetch(`https://job-seeker-zbzl.onrender.com/api/job/job-posts?skillsRequired=${encodedSkills}`, options)
                 .then(response => response.json())
-                .then(response => setJobs([...response.jobPosts]))
-                .catch(err => console.error(err));
+                .then(response => {
+                    setLoading(false)
+                    setJobs([...response.jobPosts])
+                })
+                .catch(error => catchGet(error))
         }
     }, [search])
 
     const handleSkill = (e) => {
-        if (e.target.value ==="")
-        return;
+        if (e.target.value === "")
+            return;
         if (!skills.includes(e.target.value))
             setSkills((prev) => [...prev, e.target.value])
     }
@@ -48,14 +58,18 @@ export const Listing = () => {
         setSkills([...skills])
     }
     useEffect(() => {
+        setLoading(true);
+       
         const options = { method: 'GET' };
         const search = skills.join("&")
-        console.log(search," search");
+        console.log(search, " search");
         const encodedSkills = encodeURIComponent(search);
         fetch(`https://job-seeker-zbzl.onrender.com/api/job/job-posts?skillsRequired=${encodedSkills}`, options)
             .then(response => response.json())
-            .then(response => setJobs([...response.jobPosts]))
-            .catch(err => console.error(err));
+            .then(response => {
+                setLoading(false)
+                setJobs([...response.jobPosts])})
+            .catch(err => catchGet(err))
     }, [skills])
     return (
         <div className={styles.main}>
@@ -82,49 +96,52 @@ export const Listing = () => {
                         )}
                     </div>
                     {
-                        token?  <button onClick={() => navigate("/addJob", { state: { id: jobs._id } })} className={styles.view}>Add Job</button> : ""
+                        token ? <button onClick={() => navigate("/addJob", { state: { id: jobs._id } })} className={styles.view}>Add Job</button> : ""
                     }
-                   
+
                 </div>
             </div>
             <div className={styles.bottom}>
-                {jobs.map((data) => {
-                    return (
-                        <div key={data._id} className={styles.list}>
-                            <div className={styles.listLeft}>
-                                <div>
-                                    <img src={data.logoURL} />
+                {loading ? <div style={{ fontSize: "1.5rem", height: "50%", width: "50%", marginTop: "12vh" }}>Loading... </div> : <>
+                    {jobs.map((data) => {
+                        return (
+                            <div key={data._id} className={styles.list}>
+                                <div className={styles.listLeft}>
+                                    <div>
+                                        <img src={data.logoURL} />
+                                    </div>
+                                    <div className={styles.infoLeft}>
+                                        <p className={styles.position}>{data.position}</p>
+                                        <p className={styles.extraInfo}>
+                                            <span className={styles.greyText}>11-50</span>
+                                            <span className={styles.greyText}>₹ {data.salary}</span>
+                                            <span className={styles.greyText}>{data.location}</span>
+                                        </p>
+                                        <p className={styles.extraInfo}>
+                                            <span className={styles.redText}>{data.remote}</span>
+                                            <span className={styles.redText}>{data.jobType}</span>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className={styles.infoLeft}>
-                                    <p className={styles.position}>{data.position}</p>
-                                    <p className={styles.extraInfo}>
-                                        <span className={styles.greyText}>11-50</span>
-                                        <span className={styles.greyText}>₹ {data.salary}</span>
-                                        <span className={styles.greyText}>{data.location}</span>
-                                    </p>
-                                    <p className={styles.extraInfo}>
-                                        <span className={styles.redText}>{data.remote}</span>
-                                        <span className={styles.redText}>{data.jobType}</span>
-                                    </p>
+                                <div>
+                                    <div>
+                                        {data.skillsRequired.map((skill) => {
+                                            return (
+                                                <span className={styles.skill} key={skill}>{skill}</span>
+                                            )
+                                        }
+                                        )}
+                                    </div>
+                                    <div className={styles.btnGroup}>
+                                        {token ? <button onClick={() => navigate('/addJob', { state: { id: data._id, edit: true } })} className={styles.edit}>Edit job</button> : ""}
+                                        <button onClick={() => navigate('/detail', { state: { id: data._id } })} className={styles.view}>View Details</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div>
-                                    {data.skillsRequired.map((skill) => {
-                                        return (
-                                            <span className={styles.skill} key={skill}>{skill}</span>
-                                        )
-                                    }
-                                    )}
-                                </div>
-                                <div className={styles.btnGroup}>
-                                   {token? <button onClick={() => navigate('/addJob', { state: { id: data._id, edit: true } })} className={styles.edit}>Edit job</button>:""}
-                                    <button onClick={() => navigate('/detail', { state: { id: data._id } })} className={styles.view}>View Details</button>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </>
+                }
             </div>
         </div>
     )
